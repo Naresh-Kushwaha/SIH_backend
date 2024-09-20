@@ -2,7 +2,7 @@ package com.example.SIH1613.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.SIH1613.Model.Publication;
+import com.example.SIH1613.Model.PublicationModel;
 import com.example.SIH1613.Repository.PublicationRepository;
 import java.util.*;
 @RestController
@@ -13,11 +13,11 @@ public class PublicationController {
     private PublicationRepository publicationRepository;
 
     @PostMapping
-    public Publication createPublication(@RequestBody Publication publication) {
-        return publicationRepository.save(publication);
+    public PublicationModel createPublication(@RequestBody PublicationModel publicationModel) {
+        return publicationRepository.save(publicationModel);
     } 
     @GetMapping
-    public List<Publication> getAllPublication(){
+    public List<PublicationModel> getAllPublication(){
         return publicationRepository.findAll();
 
     }

@@ -43,7 +43,7 @@ public class securityConfig {
     @Bean
      public SecurityFilterChain AsecurityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/admin/create","/api/admin/login","/api/student/login","/api/student/create","/api/faculty/create","/api/faculty/login","/api/publications","api/googlepublications").permitAll()
+                        .requestMatchers("**").permitAll()
                         .anyRequest().authenticated())
 
                 .httpBasic(withDefaults())

@@ -6,8 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.scheduling.annotation.Scheduled;
-import com.example.SIH1613.Model.Publication;
+import com.example.SIH1613.Model.PublicationModel;
 
 import io.jsonwebtoken.io.IOException;
 
@@ -17,14 +16,14 @@ import java.util.List;
 @Service
 public class GoogleService {
     
-  private List<Publication> publications = new ArrayList<>(); 
+  private List<PublicationModel> publicationModels = new ArrayList<>();
   String url = "https://scholar.google.com/citations?user=iR36uOoAAAAJ";
 
  
   // Runs every hour (3600000 milliseconds)
 
-  @Scheduled(fixedRate = 3000)
-    public List<Publication> scrapeGoogleScholar() throws java.io.IOException {
+  @Scheduled(fixedRate = 3600000)
+    public List<PublicationModel> scrapeGoogleScholar() throws java.io.IOException {
         try {
             // Connect to the Google Scholar profile page and fetch the HTML
             Document doc = Jsoup.connect(url).get();
@@ -34,7 +33,7 @@ public class GoogleService {
             
 
             // Clear the previous list of publications
-            publications.clear();
+            publicationModels.clear();
 
             // Loop through each publication row and extract the details
             for (Element publication : publicationRows) {
@@ -44,7 +43,7 @@ public class GoogleService {
                 String citations = publication.select("a.gsc_a_ac").text();
 
                 // Create a new publication object and add it to the list
-                publications.add(new Publication(title, authors, publicationInfo, citations));
+                publicationModels.add(new PublicationModel(title, authors, publicationInfo, citations));
             }
 
             System.out.println("Successfully scraped Google Scholar data.");
@@ -52,7 +51,7 @@ public class GoogleService {
             e.printStackTrace();
             System.out.println("Error occurred while scraping Google Scholar.");
         }
-        return publications;
+        return publicationModels;
     }
 
     

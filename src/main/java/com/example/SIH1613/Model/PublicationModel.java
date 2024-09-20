@@ -3,7 +3,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Publication {
+public class PublicationModel {
       @Id
     private String id;
     private String title;
@@ -24,7 +24,7 @@ public class Publication {
     private String awards;
 
     
-    public Publication(String title, String authors, String journal, String citationCount) {
+    public PublicationModel(String title, String authors, String journal, String citationCount) {
         this.title = title;
         this.authors = authors;
         this.journal = journal;
